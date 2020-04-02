@@ -1,2 +1,2 @@
-# PARCIAL-ARTIFICIAL-2
-En este repositorio se encuentra la solucion del segundo parcial de inteligencia artificial en donde debe hacer un algoritmo de clasificación y seleccionar el mejor
+# CODIGOS HECHOS EN CLASE CONTROL AVANZADO
+En este repositorio se encuentra los codigos y los diagramas de simulink para diseño de controladores hechos en la clase de control avanzado y algunas otras cosas
