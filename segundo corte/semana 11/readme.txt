@@ -1,0 +1,1 @@
+en la clase se trabaho sobre observadores
