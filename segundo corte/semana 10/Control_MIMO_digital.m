@@ -139,8 +139,10 @@ K = Grand*inv(X)
 Kes = K(:,1:n)
 Ki = -K(:,n+1:end)
 %% Control óptimo
-Q = diag([1 1 1 0.1 0.1]) % Matriz diagonal de tamaño n+r
+Q = diag([1 1 1 0.1 0.1]) % Matriz diagonal de tamaño n+r si Q es mas grande es mas rapido
+%%primero se cambia lo ultimo de Q luego se cambia R y los valores iniciales de Q
 R = diag([10 10 10])           % Matriz diagonal de tamaño p
+%si R es mas pequeño es mas rapido
 [K,S,E] = dlqr(Ghat,Hhat,Q,R)
 Kes = K(:,1:n)
 Ki = -K(:,n+1:end)
