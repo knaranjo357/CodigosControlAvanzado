@@ -75,6 +75,7 @@ sys_u = ss(AA,BB,CC1,DD1)
 figure(2)
 step(sys_u)
 grid
+
 %% Obsevabor de Luenberger polos reales
 Vob = obsv(ALn,CLn)
 rank(Vob) % rango del numero de estados

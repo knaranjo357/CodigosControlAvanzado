@@ -104,40 +104,40 @@ Mc = ctrb(Ghat,Hhat)
 rank(Mc)  % El rango de la matirz es n+r
 %% Diseño polos reales
 ts = 1;
-muestras = ts/Tm
+%muestras = ts/Tm
 s1 = -4/ts
 Polc = [s1, 1.2*s1, 5*s1, 5*s1, 6*s1]
-Pold = exp(Tm*Polc)
-delta = diag(Pold)  % Matriz cuadrada de n+r
+    Pold = exp(Tm*Polc)
+    delta = diag(Pold)  % Matriz cuadrada de n+r
 % Grand = 2*rand(p,n+r)-1;
 Grand = [0.412092176039218 -0.907657218737692 0.389657245951634 -0.931107838994183 0.531033576298005;-0.936334307245159 -0.805736437528305 -0.365801039878279 -0.122511280687204 0.590399802274126;-0.446154030078220 0.646915656654585 0.900444097676710 -0.236883085813983 -0.626254790891243];
-X = lyap(Ghat, -delta, -Hhat*Grand);
-det(X)
-K = Grand*inv(X)
-Kes = K(:,1:n)
-Ki = -K(:,n+1:end)
+    X = lyap(Ghat, -delta, -Hhat*Grand);
+    det(X)
+    K = Grand*inv(X)
+    Kes = K(:,1:n)
+    Ki = -K(:,n+1:end)
 %% Diseño polos complejos
 ts = 1;
-muestras = ts/Tm
+% muestras = ts/Tm
 Mp = 0.1
-zita = abs(log(Mp))/sqrt(pi^2+(log(Mp))^2);
-wn = 4/(zita*ts)
-wd = wn*sqrt(1-zita^2)
-s1 = -zita*wn + j*wd
+    zita = abs(log(Mp))/sqrt(pi^2+(log(Mp))^2);
+    wn = 4/(zita*ts)
+    wd = wn*sqrt(1-zita^2)
+    s1 = -zita*wn + j*wd
 Polc = [s1, conj(s1), 2*real(s1), 5*real(s1), 6*real(s1)]
-Pold = exp(Tm*Polc)
-delta = [real(Pold(1)) imag(Pold(1)) 0 0 0;  % Matriz cuadrada de n+r
-        imag(Pold(2)) real(Pold(2)) 0 0 0;
-        0 0 Pold(3) 0 0;
-        0 0 0 Pold(4) 0;
-        0 0 0 0 Pold(5)]
+    Pold = exp(Tm*Polc)
+delta = [   real(Pold(1))   imag(Pold(1))       0               0           0;  % Matriz cuadrada de n+r
+            imag(Pold(2))   real(Pold(2))       0               0           0;
+            0               0                   Pold(3)         0           0;
+            0               0                   0               Pold(4)     0;
+            0               0                   0               0           Pold(5)]
 %Grand = 2*rand(p,n+r)-1;
 Grand = [-0.300032468030383 0.232089352293278 0.661657255792582 0.834387327659620 0.507458188556991;-0.606809499137584 -0.0534223021945415 0.170528182305449 -0.428321962359253 -0.239108306049287;-0.497832284047938 -0.296680985874007 0.0994472165822791 0.514400458221443 0.135643281450442];
-X = lyap(Ghat, -delta, -Hhat*Grand);
-det(X)
-K = Grand*inv(X)
-Kes = K(:,1:n)
-Ki = -K(:,n+1:end)
+    X = lyap(Ghat, -delta, -Hhat*Grand);
+    det(X)
+    K = Grand*inv(X)
+    Kes = K(:,1:n)
+    Ki = -K(:,n+1:end)
 %% Control óptimo
 Q = diag([1 1 1 0.1 0.1]) % Matriz diagonal de tamaño n+r si Q es mas grande es mas rapido
 %%primero se cambia lo ultimo de Q luego se cambia R y los valores iniciales de Q
@@ -147,26 +147,26 @@ R = diag([10 10 10])           % Matriz diagonal de tamaño p
 Kes = K(:,1:n)
 Ki = -K(:,n+1:end)
 %% Modelo lineal en lazo cerrado para seguimiento
-AA = [GLn - HLn*Kes, HLn*Ki;
-     -CLn*GLn + CLn*HLn*Kes ,eye(r)-CLn*HLn*Ki]
-eig(AA)
-BB = [zeros(n,r);
-      eye(r)]
-CC = [CLn, zeros(r,r)]
-DD = zeros(r,r);
-sys_new = ss(AA,BB,CC,DD,Tm)
-figure(1)
-step(sys_new)
-grid
+    AA = [GLn - HLn*Kes, HLn*Ki;
+         -CLn*GLn + CLn*HLn*Kes ,eye(r)-CLn*HLn*Ki]
+    eig(AA)
+    BB = [zeros(n,r);
+          eye(r)]
+    CC = [CLn, zeros(r,r)]
+    DD = zeros(r,r);
+    sys_new = ss(AA,BB,CC,DD,Tm)
+    figure(1)
+    step(sys_new)
+    grid
 
-% Acción de control
-CC1 = [-Kes Ki]
-CC1 = -K
-DD1 = zeros(p,r);
-sys_u = ss(AA,BB,CC1,DD1,Tm)
-figure(2)
-step(sys_u)
-grid
+    % Acción de control
+    CC1 = [-Kes Ki]
+    CC1 = -K
+    DD1 = zeros(p,r);
+    sys_u = ss(AA,BB,CC1,DD1,Tm)
+    figure(2)
+    step(sys_u)
+    grid
 %% Diseño punto de equilibrio
 Mc = ctrb(GLn,HLn)
 rank(Mc)  % El rango de la matirz es n
