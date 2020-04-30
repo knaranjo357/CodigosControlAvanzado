@@ -126,7 +126,7 @@ Mp = 0.1
     s1 = -zita*wn + j*wd
 Polc = [s1, conj(s1), 2*real(s1), 5*real(s1), 6*real(s1)]
     Pold = exp(Tm*Polc)
-delta = [   real(Pold(1))   imag(Pold(1))       0               0           0;  % Matriz cuadrada de n+r
+delta = [   real(Pold(1))   imag(Pold(1))       0               0           0; 
             imag(Pold(2))   real(Pold(2))       0               0           0;
             0               0                   Pold(3)         0           0;
             0               0                   0               Pold(4)     0;

@@ -79,7 +79,7 @@ grid
 %% Obsevabor de Luenberger polos reales
 Vob = obsv(ALn,CLn)
 rank(Vob) % rango del numero de estados
-ts = 0.3
+ts = 0.3 %por lo menos 5 veces mas rapido que el sistema
 s1 = -4/ts
 delta = diag([s1 2*s1 4*s1]) % Matriz cuadrada igual al numero de estados n*n
 %%Grand = 2*rand(r,n)-1;  % Matriz de r*n
